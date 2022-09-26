@@ -1,0 +1,80 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-7">
+      <div class="offset-2" *ngFor="let cart of cartItems">
+        <img title="name" src="{{ cart.url }}" class="col-md-2" />
+        <div class="col-md-3">
+          <p>{{ cart.name }}</p>
+          <p>{{ cart.price }}</p>
+          <label for="quantity">Amount: </label>
+
+          <input
+            type="number"
+            name="quantity"
+            title="quantity"
+            min="0"
+            max="10"
+            [(ngModel)]="cart.quantity"
+            (ngModelChange)="totalCartCost()"
+            (ngModelChange)="removeItems(cart)"
+          />
+          <br /><br />
+        </div>
+      </div>
+      <br />
+
+      <h4>
+        <b> Price = ${{ totalCost }}</b>
+      </h4>
+    </div>
+    <div class="col-md-5">
+      <form #form="ngForm" class="form-margin" (ngSubmit)="submitOrder()">
+        <label for="name">Full Name:</label>
+        <br />
+        <input
+          class="form-control w-50 mt-1"
+          type="text"
+          name="name"
+          required
+          [(ngModel)]="name"
+          placeholder="(minimum length 3 characters)"
+          minlength="3"
+        />
+        <br />
+        <label for="adress">Address:</label>
+        <br />
+        <input
+          class="form-control w-50 mt-1"
+          type="text"
+          name="address"
+          required
+          [(ngModel)]="address"
+          minlength="6"
+          placeholder="(minimum length 6 characters"
+        />
+        <br />
+        <label for="card-number">Card Number:</label>
+        <br />
+        <input
+          class="form-control w-50 mt-1"
+          type="text"
+          name="nationalID"
+          required
+          [(ngModel)]="cartID"
+          minlength="16"
+          maxlength="16"
+          placeholder="enter-16-digits"
+        />
+        <br />
+        <input
+          (click)="submitOrder()"
+          routerLink="/confirmation"
+          type="submit"
+          name="submit"
+          [disabled]="form.invalid"
+          class="btn btn-primary"
+        />
+      </form>
+    </div>
+  </div>
+</div>
